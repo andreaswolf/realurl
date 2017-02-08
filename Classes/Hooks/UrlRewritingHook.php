@@ -2480,6 +2480,8 @@ class UrlRewritingHook implements SingletonInterface
                         if (empty($_GET[$key])) {
                             $_GET[$key] = $value;
                             $this->additionalParametersForChash[$key] = MathUtility::canBeInterpretedAsInteger($value) ? intval($value) : $value;
+                        } elseif ($_GET[$key] != $value) {
+                            $this->decodeSpURL_throw404("Parameter $key was already set to a different value than mandated by domain.");
                         }
                     }
                     if (isset($hostConfiguration['useConfiguration'])) {
